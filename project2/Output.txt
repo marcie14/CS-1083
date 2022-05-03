@@ -1,0 +1,44 @@
+Welcome to DrJava.  Working directory is /Users/marciellelegarde/Documents/UTSA Fall 2019/CS 1083/project 2
+> run SuperMarket
+Fall 2019 - CS1083 - Section 3 - Project 2 - written by Cici Legarde.
+Welcome to your UTSA - SuperMarket
+customers:  0-Aaron 1-Priscilla 2-Marty 3-John 4-Bob 5-Alicia 6-Eve 7-Joseph 8-Michael 9-Donald
+Select a/an customer: 
+ [11]
+The selected customer is invalid, please, try again
+ [21]
+The selected customer is invalid, please, try again
+ [9]
+actions:  0-Finish transaction 1-Add to cart 2-Cancel transaction
+Select a/an action: 
+ [1]
+  items:  0-Beans 1-Rice 2-Banana 3-Ice 4-Tea 5-Bread 6-Orange 7-Sugar
+  Select a/an item: 
+ [3]
+  How many/much of Ice do you want to buy?
+ [3.25]
+actions:  0-Finish transaction 1-Add to cart 2-Cancel transaction
+Select a/an action: 
+ [1]
+  items:  0-Beans 1-Rice 2-Banana 3-Ice 4-Tea 5-Bread 6-Orange 7-Sugar
+  Select a/an item: 
+ [9]
+  The selected item is invalid, please, try again
+ [7]
+  How many/much of Sugar do you want to buy?
+ [9.88]
+actions:  0-Finish transaction 1-Add to cart 2-Cancel transaction
+Select a/an action: 
+ [0]
+--------------------------------------------------
+Subtotal			:  $ 32.955
+Discount senior			: -$ 6.591
+--------------------------------------------------
+Adjusted Sub-Total		: $ 26.363999999999997
+			    Tax : $ 2.0596875
+--------------------------------------------------
+Total				: $ 28.423687499999996
+===================================================
+Thank you for your purchase, Donald!
+We hope to see you back soon!
+> 

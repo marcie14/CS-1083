@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class CostCalculator {
+  public static final Scanner IN = new Scanner(System.in);
+  public static void main(String[] args) {
+    //System.out.println("Welcome to DrJava. Working directory is V:\CS1083\Project_1");
+    //add in all other things before operational code
+    
+    int customerID;
+    String customerName;
+    
+    System.out.println("Welcome to your preferred store");
+    
+    System.out.print("What's your customer ID?");
+    customerID = IN.nextInt();
+    if (customerID == 1) {
+      customerName = "Sarah";
+    }
+    else if (customerID == 2) {
+      customerName = "John";
+    }
+    else if (customerID == 3) {
+      customerName = "Matthew";
+    }
+    else if (customerID == 4) {
+      customerName = "Michelle";
+    }
+    else if (customerID == 5) {
+      customerName = "Ethan";
+    }
+    else {
+    System.out.println("No Customer ID on file.");
+    }
+    System.out.println("\n Welcome " + customerName);
+  }
+}

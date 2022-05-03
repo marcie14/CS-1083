@@ -1,0 +1,340 @@
+import java.util.*;
+import java.math.*;
+
+public class SuperMarket {
+  
+  // Class constants
+  
+  // Scanner CONSOLE
+  public static final Scanner CONSOLE = new Scanner(System.in);
+  
+  // Texas tax rate
+  public static final double TAX_RATE = 0.0625;
+  
+  // Discounts
+  public static final double MINOR_DISCOUNT = 0.10; // if customer is younger than 19
+  public static final double SENIOR_DISCOUNT = 0.20; // if customer is older than 59
+  
+  
+  
+  // Actions' information
+  // The array of the name of the action is shown as example and contains the information based on the following table
+  // ---------------------------------------------------
+  // | Action ID | Description                         |
+  // ---------------------------------------------------
+  // | 0         | Finish transaction                  |
+  // | 1         | Add to cart                         |
+  // | 2         | Cancel transaction                  |
+  // ---------------------------------------------------
+  
+  // Declaration of array actionDesc
+  public static String actionDesc[] = {"Finish transaction", "Add to cart", "Cancel transaction"};
+  
+  
+  
+  // Customers' information
+  // The arrays containing the information of name and age should be filled up with the information 
+  // shown in the following table. Note that the datatype of each array could help make your program
+  // easier to code/understand.
+  // ---------------------------------------------------
+  // | Customer ID | Name                        | Age |
+  // ---------------------------------------------------
+  // | 0           | Aaron                       | 18  |
+  // | 1           | Priscilla                   | 15  |
+  // | 2           | Marty                       | 42  |
+  // | 3           | John                        | 25  |
+  // | 4           | Bob                         | 29  |
+  // | 5           | Alicia                      | 75  |
+  // | 6           | Eve                         | 15  |
+  // | 7           | Joseph                      | 38  |
+  // | 8           | Michael                     | 62  |
+  // | 9           | Donald                      | 68  |
+  // ---------------------------------------------------
+  
+  // CUSTOMER_ID array
+  public static final String[] CUSTOMER_ID = {"Aaron", "Priscilla", "Marty", "John",
+    "Bob", "Alicia", "Eve", "Joseph", "Michael", "Donald"};
+  // CUSTOMER_AGE array
+  public static final int[] CUSTOMER_AGE = {18, 15, 42, 25, 29, 75, 15, 38, 62, 68};
+  
+  
+  
+  // Items' information
+  // The arrays containing the information of name, price, tax should be filled up with the information 
+  // shown in the following table. Note that the datatype of each array could help make your program
+  // easier to code/understand.
+  // -------------------------------------------------------
+  // | Item ID | Description           | Price   | Taxable |
+  // -------------------------------------------------------
+  // | 0       | Beans                 | 3.25    | No      |
+  // | 1       | Rice                  | 4.31    | No      |
+  // | 2       | Banana                | 6.88    | No      |
+  // | 3       | Ice                   | 3.30    | Yes     |
+  // | 4       | Tea                   | 5.25    | Yes     |
+  // | 5       | Bread                 | 4.89    | No      |
+  // | 6       | Orange                | 6.32    | No      |
+  // | 7       | Sugar                 | 2.25    | Yes     |
+  // -------------------------------------------------------
+
+  // ITEMS array
+  public static final String[] ITEMS = {"Beans", "Rice", "Banana", "Ice", "Tea", "Bread", "Orange", "Sugar"};
+  
+  //PRICE array
+  public static final double[] PRICE = {3.25, 4.31, 6.88, 3.30, 5.25, 4.89, 6.32, 2.25};
+  
+  //TAXABLE array
+  public static final boolean[] TAXABLE = {false, false, false, true, true, false, false, true};
+  
+  
+  
+  
+  // Method stub for printing the header
+  public static void printReceiptHeader(){
+    displayMessage("Welcome to your UTSA - SuperMarket");
+  }
+  
+  
+  
+  // Method stub for printing the footer
+  public static void printReceiptFooter(double subTotal, double discount, double tax, int customerID){
+    // variable declarations
+    double total = 0;
+    String discountType = "";
+    
+    // begin printing for all trannsactions
+    displayMessage("--------------------------------------------------");
+    displayMessage("Subtotal\t\t\t:  $ " + subTotal);
+    
+    // check for discounts
+    if (CUSTOMER_AGE[customerID] < 19) {
+      discountType = "minor";
+      discount = MINOR_DISCOUNT;
+    }
+    else{
+      if (CUSTOMER_AGE[customerID] > 59) {
+        discountType = "senior";
+        discount = SENIOR_DISCOUNT;
+      }
+      else {
+        discountType = "";
+        discount = 0;
+      }
+    }
+    
+    // if there is a discount - special print
+    if (!discountType.equals("")){
+      displayMessage("Discount " + discountType + "\t\t: -$ " + subTotal * discount);
+      displayMessage("--------------------------------------------------");
+      
+      subTotal = subTotal - (discount * subTotal);
+      displayMessage("Adjusted Sub-Total\t\t: $ " + subTotal);
+    }
+    
+    // regular end print for all transactionns
+    total = total + subTotal + tax; // total cost calculation
+    
+    displayMessage("\t\tTax: $ " + tax);
+    displayMessage("--------------------------------------------------");
+    displayMessage("Total\t\t\t: $ " + total);
+    displayMessage("===================================================");
+    
+    displayMessage("Thank you for your purchase, " + CUSTOMER_ID[customerID] + "!\nWe hope to see you back soon!");
+  }
+  
+  
+  
+  // Method stub to get an integer value from the user's input with message and maximum value
+  public static int getValidInput(String str, String option, int max, String indentation){
+    // variable declarations
+    int val = 100;
+    
+    // while loop to check for valid input
+    while (val > (max - 1)){
+      displayMessage(indentation +"The selected " + option + " is invalid, please, try again");
+      val = CONSOLE.nextInt();
+    }
+    return val;
+  }
+  
+  
+
+  // Method stub to display message
+  public static void displayMessage(String str) {
+    // variable declarations
+    String indentation = "";
+    String str2 = "";
+    
+    // if array is needed - begin assigning array
+    if (str.equals("customer")){
+      String[] array = new String[CUSTOMER_ID.length];
+      
+      // assign array with CUSTOMER_ID
+      for (int i = 0; i < CUSTOMER_ID.length; ++i){
+        array[i] = CUSTOMER_ID[i];
+      }
+      // method call for get array
+      str2 = getArrayList(array);
+    }
+    else {
+      if (str.equals("action")) {
+        String[] array = new String[actionDesc.length];
+        
+        // assign array with actionDesc
+        for (int i = 0; i < actionDesc.length; ++i){
+          array[i] = actionDesc[i];
+        }
+        // method call for get array
+        str2 = getArrayList(array);
+      }
+      else {
+        if(str.equals("item")) {
+          String[] array = new String[ITEMS.length];
+          
+          // assign array with ITEMS
+          for (int i = 0; i < ITEMS.length; ++i){
+            array[i] = ITEMS[i];
+          }
+          
+          // method call for get array
+          str2 = getArrayList(array);
+          // modify indentation if "item"
+          indentation = "  ";
+        }
+        
+        else{
+          // quantity of item
+          if (str.equals("Beans") || str.equals("Rice") || str.equals("Banana") || str.equals("Ice") ||
+              str.equals("Tea") || str.equals("Bread") || str.equals("Orange") || str.equals("Sugar")) {
+            System.out.println("  How many/much of " + str + " do you want to buy?");
+          }
+          
+          // print str as given
+          else{
+            System.out.println(str);
+          }
+        }
+      }
+    }
+    
+    // if array is needed - print array
+    if (str.equals("customer") || str.equals("action") || str.equals("item")) {
+      System.out.println(indentation + str + "s: " + str2);
+      System.out.println(indentation + "Select a/an " + str + ": ");
+    }
+  }  
+  
+  
+  
+  
+  // Method stub for getting customer ID
+  public static int getCustomerID(){
+    int customer = -1;
+    displayMessage("customer");
+    customer = CONSOLE.nextInt();
+    while (customer >= CUSTOMER_ID.length){
+      customer = getValidInput("customer", "customer", CUSTOMER_ID.length, "");
+    }
+    return customer;
+  }
+  
+  
+  
+  // Method stub for getting the values of an array as a list with the corresponding index as the code
+  public static String getArrayList(String[] list){
+    String str = "";
+    for (int i = 0; i < list.length; ++i) {
+      str = str + " " + i + "-" + list[i];
+    }
+    return str;
+  }
+  
+  
+  
+  // Method stub for getting quantity with a string received as parameter
+  public static double getQuantity(String str){
+    double val = -1;
+    displayMessage(str);
+    val = CONSOLE.nextDouble();
+    return val;
+  }
+
+  
+  
+  // Method stub for constructing the complete transaction 
+  public static void genTransaction(){
+    
+    // get customer id method call
+    int customerID = getCustomerID();
+    
+    // variable declaration
+    int userAction = -1;
+    int userItem = -1;
+    double subTotal = 0;
+    double discount = 0;
+    double tax = 0;
+   
+    // get array list for actions
+    displayMessage("action");
+    userAction = CONSOLE.nextInt(); 
+    if (userAction >= actionDesc.length) {
+      getValidInput("action", "action", actionDesc.length, "");
+    }
+    
+    // while loop for continuing transaction
+    while (userAction != 0) {
+      
+      // print items list and retrieve valid user input
+      displayMessage("item");
+      userItem = CONSOLE.nextInt();
+      if (userItem >= ITEMS.length) {
+        userItem = getValidInput("item", "item", ITEMS.length, "  ");
+      }
+      
+      // method call for getting quantity of item selected
+      double itemQuantity = getQuantity(ITEMS[userItem]);
+  
+      // calculation of item cost
+      double totalItemCost = PRICE[userItem] * itemQuantity;
+      
+      // determination and calculation of tax
+      if (TAXABLE[userItem]) {
+        tax = tax + (totalItemCost * TAX_RATE);
+      }
+      
+      // adding to running subtotal (without tax)
+      subTotal = subTotal + totalItemCost;
+      
+      // retrieve user choice of continuing transaction
+      displayMessage("action");
+      userAction = CONSOLE.nextInt();
+      
+      
+      // break in case of "cancel" and print end message
+      if (userAction == 2) {
+        displayMessage("Transaction aborted");
+        break;
+      }
+    } // end while loop
+    
+    // if transaction is finalized, method call for printing receipt footer
+    if (userAction == 0) {
+      printReceiptFooter(subTotal, discount, tax, customerID);
+    }
+  }
+ 
+  
+  
+  public static void main(String[] args){
+    
+    // Modify the following line of code
+    displayMessage("Fall 2019 - CS1083 - Section 3 - Project 2 - written by Cici Legarde.");
+    
+    // Method call that will print the Receipt Header
+    printReceiptHeader();
+    
+    // Method call that will generate the transaction, that will get input from the user and calculate the total
+    genTransaction();
+    
+  }
+  
+}
